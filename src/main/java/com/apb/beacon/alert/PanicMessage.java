@@ -1,7 +1,12 @@
 package com.apb.beacon.alert;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
+import android.os.BatteryManager;
+
 import com.apb.beacon.location.LocationFormatter;
 import com.apb.beacon.model.SMSSettings;
 import com.apb.beacon.sms.SMSAdapter;
@@ -15,9 +20,11 @@ public class PanicMessage {
     public static final int TWITTER_MAX_LENGTH = 140;
     private Context context;
     private Location location;
+    private  int levelBattery;//guarda el nuvel de bateria
 
     public PanicMessage(Context context) {
         this.context = context;
+            this.context.registerReceiver(this.batteryInfoReceiver,	new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
     public void send(Location location) {
@@ -33,8 +40,9 @@ public class PanicMessage {
         SMSAdapter smsAdapter = getSMSAdapter();
         String message = getSMSText(smsSettings.trimmedMessage());
 
+
         for (String phoneNumber : smsSettings.validPhoneNumbers()) {
-            smsAdapter.sendSMS(phoneNumber, message);
+            smsAdapter.sendSMS(phoneNumber, message,levelBattery);
         }
     }
 
@@ -42,7 +50,7 @@ public class PanicMessage {
         SMSAdapter smsAdapter = getSMSAdapter();
         ShortCodeSettings shortCodeSettings = twitterSettings.getShortCodeSettings();
         String message = getTwitterText(twitterSettings.getMessage());
-        smsAdapter.sendSMS(shortCodeSettings.getShortCode(), message);
+        smsAdapter.sendSMS(shortCodeSettings.getShortCode(), message,levelBattery);
     }
 
     private String getSMSText(String message) {
@@ -65,4 +73,15 @@ public class PanicMessage {
     SMSAdapter getSMSAdapter() {
         return new SMSAdapter();
     }
+
+    /**
+     * BroadcastReceiver que obtiene el nivel de la bateria
+     */
+    private BroadcastReceiver batteryInfoReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            levelBattery= intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
+        }
+    };
+
 }
