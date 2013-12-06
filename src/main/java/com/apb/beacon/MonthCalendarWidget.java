@@ -27,10 +27,14 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
+
+import com.apb.beacon.alert.PanicAlert;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -46,6 +50,14 @@ public class MonthCalendarWidget extends AppWidgetProvider {
     private static final String PREF_MONTH = "month";
     private static final String PREF_YEAR = "year";
 
+   // private static final String SYNC_CLICKED_    = "automaticWidgetSyncButtonClick";
+    private static int countCalendar = -1;
+    private Handler handler = new Handler();
+    public static boolean countTimerCalendar = true;
+   // month_label
+
+
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
@@ -53,6 +65,17 @@ public class MonthCalendarWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             drawWidget(context, appWidgetId);
         }
+//
+        RemoteViews remoteViews;
+        ComponentName watchWidget;
+
+        remoteViews = new RemoteViews(context.getPackageName(), R.layout.widgetcalendar);
+        watchWidget = new ComponentName(context, MonthCalendarWidget.class);
+
+        remoteViews.setOnClickPendingIntent(R.id.month_label, getPendingSelfIntent(context, ACTION_RESET_MONTH));
+        appWidgetManager.updateAppWidget(watchWidget, remoteViews);
+//
+
     }
 
     private void redrawWidgets(Context context) {
@@ -101,6 +124,34 @@ public class MonthCalendarWidget extends AppWidgetProvider {
             SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
             sp.edit().remove(PREF_MONTH).remove(PREF_YEAR).apply();
             redrawWidgets(context);
+        }
+
+
+        if (ACTION_RESET_MONTH.equals(action)&& countCalendar >= 5) {
+            Log.i("*******","IF***");
+            countCalendar = 0;
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+            RemoteViews remoteViews;
+            ComponentName watchWidget;
+
+            remoteViews = new RemoteViews(context.getPackageName(), R.layout.widgetcalendar);
+            watchWidget = new ComponentName(context, MonthCalendarWidget.class);
+
+            appWidgetManager.updateAppWidget(watchWidget, remoteViews);
+
+            //llamamos el método de panico
+            new PanicAlert(context).activate();
+
+        }else{
+
+            Log.i("*******","ELSE***"+ action+"");
+            countCalendar += 1;
+            //contamos 10 segundos si no reiniciamos los contadores
+            if(countTimerCalendar){
+                countTimerCalendar = false;
+                handler.postDelayed(runnable, 10000);//10 segundos de espera
+            }
         }
     }
 
@@ -216,4 +267,23 @@ public class MonthCalendarWidget extends AppWidgetProvider {
         rv.setViewVisibility(R.id.month_bar, numWeeks <= 1 ? View.GONE : View.VISIBLE);
         appWidgetManager.updateAppWidget(appWidgetId, rv);
     }
+
+
+    protected PendingIntent getPendingSelfIntent(Context context, String action) {
+        Intent intent = new Intent(context.getApplicationContext(), getClass());
+        intent.setAction(action);
+        return PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
+    }
+
+    /**
+     * hilo que al pasar el tiempo reeinicia los valores
+     */
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            //reiniciamos los contadores
+            countCalendar = -1;
+            countTimerCalendar = true;
+        }
+    };
 }

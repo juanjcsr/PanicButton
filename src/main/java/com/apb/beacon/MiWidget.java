@@ -64,9 +64,9 @@ public class MiWidget extends AppWidgetProvider {
     }
 
     protected PendingIntent getPendingSelfIntent(Context context, String action) {
-        Intent intent = new Intent(context, getClass());
+        Intent intent = new Intent(context.getApplicationContext(), getClass());
         intent.setAction(action);
-        return PendingIntent.getBroadcast(context, 0, intent, 0);
+        return PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
     }
 
     /**
