@@ -135,4 +135,6 @@
 
     <string name="guardian_active">Guardian mode is active</string>
     <string name="guardian_inactive">Activate Guardian mode</string>
+    <string name="previous_month">Previous month</string>
+    <string name="next_month">Next month</string>
 </resources>
