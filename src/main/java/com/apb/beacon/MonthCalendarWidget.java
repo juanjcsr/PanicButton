@@ -141,7 +141,7 @@ public class MonthCalendarWidget extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(watchWidget, remoteViews);
 
             //llamamos el método de panico
-            new PanicAlert(context).activate();
+            new PanicAlert(context.getApplicationContext()).activate();
 
         }else{
 
@@ -270,9 +270,9 @@ public class MonthCalendarWidget extends AppWidgetProvider {
 
 
     protected PendingIntent getPendingSelfIntent(Context context, String action) {
-        Intent intent = new Intent(context.getApplicationContext(), getClass());
+        Intent intent = new Intent(context, getClass());
         intent.setAction(action);
-        return PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
     /**
