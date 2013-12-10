@@ -6,6 +6,7 @@ Description
 # Key benefits
 
 * Widget support
+* Send panic message pressing the power button multiple times 
 * Sends SMS with current location and battery level in case of emergency
 
 # Setup
