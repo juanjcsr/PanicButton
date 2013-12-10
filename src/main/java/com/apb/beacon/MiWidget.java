@@ -20,7 +20,7 @@ public class MiWidget extends AppWidgetProvider {
     private static final String SYNC_CLICKED    = "automaticWidgetSyncButtonClick";
     private static int count = -1;
     private Handler handler = new Handler();
-    public static boolean countTimer = true;
+    public static boolean countTimer = false;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -51,22 +51,22 @@ public class MiWidget extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(watchWidget, remoteViews);
 
             //llamamos el método de panico
-            new PanicAlert(context).activate();
+            new PanicAlert(context.getApplicationContext()).activate();
 
         }else{
             count += 1;
             //contamos 10 segundos si no reiniciamos los contadores
-            if(countTimer){
-                countTimer = false;
+            if(!countTimer){
+                countTimer = true;
                 handler.postDelayed(runnable, 10000);//10 segundos de espera
             }
         }
     }
 
     protected PendingIntent getPendingSelfIntent(Context context, String action) {
-        Intent intent = new Intent(context.getApplicationContext(), getClass());
+        Intent intent = new Intent(context, getClass());
         intent.setAction(action);
-        return PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
     }
 
     /**
@@ -77,7 +77,7 @@ public class MiWidget extends AppWidgetProvider {
         public void run() {
             //reiniciamos los contadores
             count = -1;
-            countTimer = true;
+            countTimer = false;
         }
     };
 }

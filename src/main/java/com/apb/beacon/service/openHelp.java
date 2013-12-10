@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.apb.beacon.alert.PanicAlert;
 
@@ -56,8 +57,10 @@ public class openHelp extends Service {
             new PanicAlert(this).activate();
 
         }else{
-            //incrementamos los click en 1
             countStart += 1;
+          //  Log.i("*********", "else "+ countStart+"");
+          //  incrementamos los click en 1
+
             //contamos 10 segundos si no reiniciamos los contadores
             if(countTimer){
                 countTimer = false;
