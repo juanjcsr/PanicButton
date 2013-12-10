@@ -12,7 +12,7 @@ import android.widget.RemoteViews;
 import com.apb.beacon.alert.PanicAlert;
 
 /**
- * Clase que controla el widget, este se activa al presionar 5 veces el reloj
+ * The Widget control. It activates the alert after 5 button presses
  *
  * Created by mikesaurio on 04/12/13.
  */
@@ -70,7 +70,7 @@ public class MiWidget extends AppWidgetProvider {
     }
 
     /**
-     * hilo que al pasar el tiempo reeinicia los valores
+     * Thread that resets the counters
      */
     private Runnable runnable = new Runnable() {
         @Override

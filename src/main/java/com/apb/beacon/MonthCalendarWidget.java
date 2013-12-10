@@ -39,6 +39,7 @@ import com.apb.beacon.alert.PanicAlert;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
+
 public class MonthCalendarWidget extends AppWidgetProvider {
     private static final String ACTION_PREVIOUS_MONTH
             = "com.example.android.monthcalendarwidget.action.PREVIOUS_MONTH";
@@ -140,17 +141,17 @@ public class MonthCalendarWidget extends AppWidgetProvider {
 
             appWidgetManager.updateAppWidget(watchWidget, remoteViews);
 
-            //llamamos el método de panico
+            //PanicAlert call
             new PanicAlert(context).activate();
 
         }else{
 
             Log.i("*******","ELSE***"+ action+"");
             countCalendar += 1;
-            //contamos 10 segundos si no reiniciamos los contadores
+            //10 second wait or counter reset
             if(countTimerCalendar){
                 countTimerCalendar = false;
-                handler.postDelayed(runnable, 10000);//10 segundos de espera
+                handler.postDelayed(runnable, 10000);//10 secs
             }
         }
     }
@@ -275,9 +276,6 @@ public class MonthCalendarWidget extends AppWidgetProvider {
         return PendingIntent.getBroadcast(context.getApplicationContext(), 0, intent, 0);
     }
 
-    /**
-     * hilo que al pasar el tiempo reeinicia los valores
-     */
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {

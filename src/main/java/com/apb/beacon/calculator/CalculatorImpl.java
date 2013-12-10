@@ -6,6 +6,9 @@ import static java.math.MathContext.DECIMAL32;
 
 import java.math.BigDecimal;
 
+/**
+ * A Calculator Skin
+ */
 class CalculatorImpl implements Calculator {
 
 	private enum Operation { PLUS, MINUS, MULTIPLY, DIVIDE };

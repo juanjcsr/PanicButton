@@ -7,6 +7,9 @@ import android.text.TextUtils;
 
 import java.util.Map;
 
+/**
+ * Sets and gets the Settings for the dialer
+ */
 public class DialerSettings {
     public static final String LAUNCH_CODE = "LAUNCH_CODE";
     private static final int MASK_LIMIT = 0;

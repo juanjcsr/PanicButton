@@ -1,5 +1,9 @@
 package com.apb.beacon.trigger;
 
+
+/**
+ * Registers hardware clicks in the time interval
+ */
 public class MultiClickEvent {
     public static final int TIME_INTERVAL = 5000;
     private static final int TOTAL_CLICKS = 5;

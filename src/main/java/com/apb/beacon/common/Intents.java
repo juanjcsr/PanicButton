@@ -6,6 +6,10 @@ import android.content.Intent;
 
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 
+
+/**
+ * The Intents
+ */
 public class Intents {
     private static final String PREFIX = "com.apb.beacon";
     public static final String LOCATION_UPDATE_ACTION = PREFIX + ".LOCATION_UPDATE_ACTION";

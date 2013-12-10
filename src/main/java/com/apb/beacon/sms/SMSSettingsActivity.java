@@ -17,6 +17,9 @@ import com.apb.beacon.wizard.ActionButtonStateListener;
 import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectView;
 
+/**
+ * The SMSSettings Activity
+ */
 public class SMSSettingsActivity extends RoboFragmentActivity implements ActionButtonStateListener {
     @InjectView(R.id.sms_save_button)
     private Button saveButton;

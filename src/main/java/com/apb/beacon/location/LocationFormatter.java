@@ -2,6 +2,9 @@ package com.apb.beacon.location;
 
 import android.location.Location;
 
+/**
+ * Formats the text for the SMS with the current location
+ */
 public class LocationFormatter {
     public static final String GOOGLE_MAP_URL = "http://maps.google.com/maps?q=";
     public static final String URL_PREFIX = ". I'm at ";

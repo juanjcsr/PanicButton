@@ -21,6 +21,9 @@ import static com.apb.beacon.R.id.second_contact;
 import static com.apb.beacon.R.id.sms_message;
 import static com.apb.beacon.R.id.third_contact;
 
+/**
+ * The main SMSSettings Fragment
+ */
 public class SMSSettingsFragment extends NestedWizardFragment {
     public static final String HEADER_TEXT_ID = "HEADER_TEXT_ID";
     private ContactEditTexts contactEditTexts;

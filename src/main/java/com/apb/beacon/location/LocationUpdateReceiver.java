@@ -9,6 +9,9 @@ import android.util.Log;
 import com.apb.beacon.ApplicationSettings;
 import com.apb.beacon.common.Intents;
 
+/**
+ * Updates the
+ */
 public class LocationUpdateReceiver extends BroadcastReceiver {
     private static final String TAG = LocationUpdateReceiver.class.getName();
     private static long MIN_UPDATE_INTERVAL = 1000 * 60 * 1;
@@ -32,6 +35,11 @@ public class LocationUpdateReceiver extends BroadcastReceiver {
         }
     }
 
+    /**
+     * Check if there is a new location available (if the user has moved)
+     * @param location
+     * @return true if there is a better location
+     */
     private boolean isBetterLocation(Location location) {
         Location currentBestLocation = getCurrentBestLocation();
         if (currentBestLocation == null) {

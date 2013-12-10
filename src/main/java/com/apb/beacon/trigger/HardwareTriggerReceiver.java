@@ -9,6 +9,9 @@ import com.apb.beacon.alert.PanicAlert;
 import static android.content.Intent.ACTION_SCREEN_OFF;
 import static android.content.Intent.ACTION_SCREEN_ON;
 
+/**
+ * Trigger to check if the button has been pressed
+ */
 public class HardwareTriggerReceiver extends BroadcastReceiver {
     private static final String TAG = HardwareTriggerReceiver.class.getName();
     private MultiClickEvent multiClickEvent;

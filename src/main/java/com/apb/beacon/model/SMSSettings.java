@@ -10,6 +10,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * Configures the settings for the SMS
+ */
 public class SMSSettings {
     public static final String PHONE_NUMBER = "PHONE_NUMBER_";
     public static final String SMS_MESSAGE = "SMS_MESSAGE";
@@ -54,10 +58,18 @@ public class SMSSettings {
         return retrievedPhoneNumbers;
     }
 
+    /**
+     * Gets the message
+     * @return the message
+     */
     public String message() {
         return message == null? BLANK : message.trim();
     }
 
+    /**
+     * Gets the trimmed message
+     * @return the trimmed messate
+     */
     public String trimmedMessage() {
         String trimmedMessage = message();
         if(trimmedMessage.endsWith(".")) {
@@ -66,10 +78,19 @@ public class SMSSettings {
         return trimmedMessage;
     }
 
+    /**
+     * Gets the phone number at the selected index
+     * @param index
+     * @return the phone number
+     */
     public String phoneNumberAt(int index) {
         return phoneNumbers.size() > index ? phoneNumbers.get(index) : BLANK;
     }
 
+    /**
+     * Shows the valid phone numbers
+     * @return the list of phone numbers
+     */
     public List<String> validPhoneNumbers() {
         List<String> validNumbers = new ArrayList<String>();
         for(String phoneNumber : phoneNumbers) {
@@ -78,10 +99,16 @@ public class SMSSettings {
         return validNumbers;
     }
 
+
     public String maskedPhoneNumberAt(int index) {
         return mask(phoneNumberAt(index));
     }
 
+    /**
+     * Get the mask from a phone number
+     * @param phoneNumber
+     * @return the masked phone number
+     */
     private String mask(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.length() < MASK_LIMIT) return phoneNumber;
         int length = phoneNumber.length();
@@ -89,6 +116,10 @@ public class SMSSettings {
         return prefix + phoneNumber.substring(length - MASK_LIMIT);
     }
 
+    /**
+     * Checks if the app has at least one phone number
+     * @return true if the app is configured
+     */
     public boolean isConfigured() {
         if (phoneNumbers == null || phoneNumbers.isEmpty()) return false;
         for (String phoneNumber : phoneNumbers) {
