@@ -141,7 +141,7 @@ public class MonthCalendarWidget extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(watchWidget, remoteViews);
 
             //llamamos el método de panico
-            new PanicAlert(context).activate();
+            new PanicAlert(context.getApplicationContext()).activate();
 
         }else{
 

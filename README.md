@@ -1,6 +1,5 @@
 PanicButton
 ===========
-
 Description
 
 # Key benefits
@@ -18,3 +17,4 @@ It uses Maven for the dependencies
 
 Tested with RoboElectric
 
+# Changelog
