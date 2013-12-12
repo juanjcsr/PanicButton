@@ -54,7 +54,7 @@ public class openHelp extends Service {
             countStart = -1;
             countTimer = true;
             //activamos el mensaje de auxilio
-            new PanicAlert(this).activate();
+            new PanicAlert(this.getApplicationContext()).activate();
 
         }else{
             countStart += 1;

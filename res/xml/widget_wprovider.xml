@@ -5,6 +5,7 @@
     android:minHeight="40dip"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:previewImage="@drawable/icon"
     android:label="mi_primer_widget"
     android:updatePeriodMillis="3600000"
     />
